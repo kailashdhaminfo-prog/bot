@@ -1,0 +1,26 @@
+name: Supabase keepalive
+
+on:
+  schedule:
+    - cron: '0 9 */5 * *'   # every 5 days at 09:00 UTC
+  workflow_dispatch:          # manual trigger
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping kailashdham_bot DB
+        run: |
+          curl -sf \
+            "https://gbnrmuhqcqdoevjrvlad.supabase.co/rest/v1/kailashdham_orders?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_BOT_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_BOT_ANON_KEY }}" \
+            && echo "✅ kailashdham_bot alive" || echo "⚠️ kailashdham_bot unreachable"
+
+      - name: Ping kailashdhaminfo DB
+        run: |
+          curl -sf \
+            "https://nvryrfykndylqhxdbqbw.supabase.co/rest/v1/calculator_leads?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_KHA_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_KHA_ANON_KEY }}" \
+            && echo "✅ kailashdhaminfo alive" || echo "⚠️ kailashdhaminfo unreachable"
