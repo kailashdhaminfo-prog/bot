@@ -2,7 +2,7 @@ name: Supabase keepalive
 
 on:
   schedule:
-    - cron: '0 9 */5 * *'   # every 5 days at 09:00 UTC
+    - cron: '0 9 */3 * *'   # every 3 days at 09:00 UTC (Supabase pauses after 7 days)
   workflow_dispatch:          # manual trigger
 
 jobs:
